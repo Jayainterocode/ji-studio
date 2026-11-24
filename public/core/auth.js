@@ -11,6 +11,10 @@ export async function api(path, body) {
   catch { const e = new Error('Tidak ada koneksi internet.'); e.offline = true; throw e; }
   let j = {};
   try { j = await r.json(); } catch {}
+  // Jawaban yang bukan JSON dari API kita (mis. PHP tidak jalan) dianggap gangguan server, bukan sukses.
+  if (r.ok && (!(r.headers.get('content-type') || '').includes('application/json') || j.ok !== true)) {
+    const e = new Error('Server tidak merespons dengan benar.'); e.status = 0; e.data = j; throw e;
+  }
   if (!r.ok) { const e = new Error(j.error || `Server bermasalah (${r.status}).`); e.status = r.status; e.data = j; throw e; }
   return j;
 }
@@ -34,6 +38,7 @@ export async function requireUser({ admin = false } = {}) {
   let user;
   try {
     user = (await api('me.php')).user;
+    if (!user || !user.username) throw Object.assign(new Error('Data pengguna tidak valid.'), { status: 0 });
     remember(user);
   } catch (e) {
     if (e.status === 401) {

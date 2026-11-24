@@ -33,7 +33,3 @@ for (const m of MODULES) {
   document.getElementById(m.admin ? 'adminMods' : 'mods').append(card(m));
 }
 document.getElementById('adminBox').hidden = user.role !== 'admin';
-
-const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
-const standalone = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
-if (ios && !standalone) document.getElementById('iosHint').hidden = false;

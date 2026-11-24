@@ -133,3 +133,12 @@ button.busy::after{content:"";position:absolute;inset:0;margin:auto;width:18px;h
 /* Elemen kerja yang harus "terlihat" oleh browser tapi tidak oleh pengguna */
 .rec-canvas,.src-video{position:fixed;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Kartu petunjuk pasang aplikasi */
+.install{border-color:var(--pri);border-width:2px}
+.install b{display:block;font-size:16px;font-weight:800}
+.install ol{margin:8px 0 4px;padding-left:20px;font-size:14px;font-weight:600;color:var(--mute)}
+.install li{margin:4px 0}
+.install .row{align-items:center}
+.install .main{flex:0 0 auto}
+.auth .install{margin-top:14px}
