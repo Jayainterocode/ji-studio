@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types ji">
+<meta name="referrer" content="no-referrer">
+<title>Story Pengantaran · JI Studio</title>
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#2d5592">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JI Studio">
+<link rel="apple-touch-icon" href="../../img/icon-180.png">
+<link rel="preload" href="../../fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../core/app.css">
+<script type="module" src="../../core/boot.js"></script>
+<script type="module" src="story.js"></script>
+</head>
+<body>
+<header class="top"><a href="../../">&larr; JI Studio</a></header>
+<main class="wrap split">
+  <div>
+    <h1>Story Pengantaran</h1>
+    <p class="sub">Pilih video truk, isi data kiriman, lalu ekspor jadi MP4 9:16 untuk IG &amp; WA Story.</p>
+
+    <section class="card">
+      <h2>1. Video</h2>
+      <label class="drop" id="dropV">
+        <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span>
+        <span><b id="vName">Pilih video portrait</b><small id="vInfo">MP4/MOV, sebaiknya 9:16, 10–15 detik, maks 60 detik</small></span>
+        <input type="file" id="fileV" accept="video/mp4,video/quicktime,video/webm,video/*">
+      </label>
+      <label class="drop" id="dropL">
+        <span class="ico dk"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 16l5-5 4 4 3-3 4 4"/></svg></span>
+        <span><b id="lName">Logo Jaya Intero (opsional)</b><small>PNG transparan, menggantikan teks "JAYA INTERO"</small></span>
+        <input type="file" id="fileL" accept="image/png,image/webp,image/jpeg">
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>2. Data pengiriman</h2>
+      <label for="fJudul2">Judul baris 2 (di bawah "PENGANTARAN")</label><input type="text" id="fJudul2" maxlength="20" autocomplete="off" aria-describedby="j2Hint">
+      <p class="hint" id="j2Hint">Mis. BAJA RINGAN, GENTENG METAL, PLAFON PVC. Kosongkan bila cukup "PENGANTARAN".</p>
+      <label for="fTujuan">Tujuan</label><input type="text" id="fTujuan" maxlength="40" autocomplete="off">
+      <label for="fMuatan">Muatan</label><input type="text" id="fMuatan" maxlength="40" autocomplete="off">
+      <label for="fTanggal">Tanggal</label><input type="text" id="fTanggal" maxlength="24" autocomplete="off">
+      <label for="fTag">Label kiri atas</label><input type="text" id="fTag" maxlength="24" autocomplete="off">
+      <label class="chk"><input type="checkbox" id="cFade" checked> Overlay memudar 0,5 dtk sebelum video habis</label>
+      <label class="chk"><input type="checkbox" id="cAudio" checked> Sertakan suara asli video</label>
+      <p class="hint" id="aHint" hidden>Browser ini belum bisa menyertakan suara; video akan diekspor tanpa suara. Perbarui iOS/Chrome untuk suara.</p>
+      <label class="chk"><input type="checkbox" id="cSafe"> Tampilkan garis area aman (hanya pratinjau)</label>
+    </section>
+
+    <section class="card">
+      <h2>3. Ekspor</h2>
+      <label for="sQual">Kualitas</label>
+      <select id="sQual"></select>
+      <p class="hint" id="qHint"></p>
+      <div class="row">
+        <button id="bReplay" type="button">Ulang animasi</button>
+        <button id="bExport" class="main" type="button" disabled>Ekspor video</button>
+      </div>
+      <button id="bCancel" class="full" type="button" hidden>Batalkan</button>
+      <button id="bShare" class="main full" type="button" hidden>Simpan ke Foto / Bagikan</button>
+      <button id="bDown" class="full" type="button" hidden>Unduh file</button>
+      <div class="bar"><i id="prog"></i></div>
+      <p class="msg" id="msg" role="status">Pilih video dulu untuk mengekspor.</p>
+    </section>
+  </div>
+
+  <div class="stage">
+    <div class="phone"><canvas id="cv" width="540" height="960" aria-label="Pratinjau story"></canvas></div>
+    <p class="note">Video tidak pernah diunggah ke server; semua diproses di HP ini. Biarkan layar menyala sampai ekspor selesai.</p>
+  </div>
+</main>
+<video id="vid" class="src-video" playsinline muted loop preload="auto"></video>
+</body>
+</html>

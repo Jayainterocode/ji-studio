@@ -1,0 +1,34 @@
+# Setiap push ke main: jalankan release.py (versi cache + cek ukuran), lalu taruh isi public/
+# di branch "deploy" dengan file situs di root. Hostinger (Git) menarik branch "deploy" ke public_html.
+name: Siapkan branch deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-branch
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versi cache + cek anggaran ukuran
+        run: python3 tools/release.py
+
+      - name: Push isi public/ ke branch deploy
+        run: |
+          cd public
+          git init -q -b deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy

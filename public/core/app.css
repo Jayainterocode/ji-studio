@@ -1,0 +1,59 @@
+/* JI Studio — gaya bersama semua modul. Montserrat saja, warna Jaya Intero. */
+@font-face{font-family:Montserrat;src:url(../fonts/montserrat.woff2) format("woff2");font-weight:500 900;font-style:normal;font-display:swap}
+:root{color-scheme:light dark;--bg:#eef3fa;--panel:#fff;--ink:#14233d;--mute:#5b6b85;--line:#d5dfee;--pri:#4070b3;--dk:#2d5592;--yl:#f4ca45;--err:#c43c3c}
+@media(prefers-color-scheme:dark){:root{--bg:#131c2b;--panel:#1b2740;--ink:#e9eff8;--mute:#9fb0cc;--line:#2c3c5c;--err:#ff8a8a}}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Montserrat,system-ui,sans-serif;overflow-x:clip;-webkit-text-size-adjust:100%}
+h1{font-size:28px;line-height:1.1;font-weight:900;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--mute);margin:0 0 20px;font-size:15px}
+.top{display:flex;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top) + 12px) max(4vw,16px) 12px;background:var(--dk);color:#fff}
+.top a{color:#fff;text-decoration:none;font-weight:800;font-size:15px;display:inline-flex;align-items:center;min-height:44px}
+.top b{font-weight:900;font-size:16px;letter-spacing:.5px}
+.wrap{max-width:1180px;margin:0 auto;padding:20px max(4vw,16px) calc(env(safe-area-inset-bottom) + 28px)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.card h2{font-size:16px;font-weight:800;margin:0 0 12px}
+label{display:block;font-size:14px;font-weight:700;margin:12px 0 6px}
+input[type=text],select{width:100%;font:600 16px Montserrat,sans-serif;padding:11px 13px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);min-height:46px}
+select option{background:var(--panel);color:var(--ink)}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,.drop:focus-within{outline:3px solid var(--yl);outline-offset:2px}
+.drop{position:relative;display:flex;align-items:center;gap:12px;border:2px dashed var(--line);border-radius:14px;padding:14px;cursor:pointer;min-height:64px;margin:0}
+.drop+.drop{margin-top:10px}
+.drop.on{border-color:var(--pri)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop b{display:block;font-size:15px;overflow-wrap:anywhere}.drop small{color:var(--mute);font-size:13px;display:block;overflow-wrap:anywhere;font-weight:600}
+.ico{flex:none;width:40px;height:40px;border-radius:10px;background:var(--pri);display:grid;place-items:center}
+.ico.dk{background:var(--dk)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.chk{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;margin:4px 0 0;cursor:pointer;min-height:44px}
+.chk input{width:20px;height:20px;accent-color:var(--pri);flex:none}
+button{font:800 15px Montserrat,sans-serif;border-radius:12px;min-height:46px;padding:0 18px;cursor:pointer;border:1.5px solid var(--line);background:transparent;color:var(--ink)}
+button.main{background:var(--pri);border-color:var(--pri);color:#fff;flex:1}
+button.full{width:100%;margin-top:10px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;background:var(--pri)}
+.msg{font-size:14px;color:var(--mute);margin:10px 0 0;min-height:1.5em;font-weight:600}
+.msg.err{color:var(--err)}
+.hint{font-size:13px;color:var(--mute);margin:8px 0 0}
+[hidden]{display:none!important}
+
+/* Peluncur modul */
+.mods{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.mod{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;min-height:44px}
+.mod b{display:block;font-size:17px;font-weight:800;margin-bottom:4px}
+.mod span{color:var(--mute);font-size:14px;font-weight:600}
+.mod:hover{border-color:var(--pri)}
+
+/* Pemberitahuan versi baru */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:9;display:flex;gap:12px;align-items:center;background:var(--dk);color:#fff;padding:10px 10px 10px 16px;border-radius:14px;font-weight:700;font-size:14px;width:max-content;max-width:calc(100% - 32px);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.toast button{background:var(--yl);border-color:var(--yl);color:#14233d;min-height:40px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* Elemen kerja yang harus "terlihat" oleh browser tapi tidak oleh pengguna */
+.rec-canvas,.src-video{position:fixed;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none}
+/* Tata letak editor video: form kiri, ponsel kanan; menumpuk di layar sempit */
+.split{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:28px}
+.stage{position:sticky;top:20px;align-self:start;display:flex;flex-direction:column;align-items:center;gap:12px}
+.phone{width:min(100%,calc((100vh - 140px) * .5625),420px);aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:#0d1626;box-shadow:0 24px 60px -20px rgba(20,40,80,.5);border:6px solid #0d1626}
+.phone canvas{width:100%;height:100%;display:block}
+.note{font-size:13px;color:var(--mute);text-align:center;max-width:420px;font-weight:600}
+@media(max-width:800px){.split{grid-template-columns:minmax(0,1fr)}.stage{position:static;order:-1}.phone{width:min(100%,320px)}}

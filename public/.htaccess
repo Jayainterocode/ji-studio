@@ -1,0 +1,41 @@
+# JI Studio — konfigurasi Hostinger (Apache/LiteSpeed). Unggah bersama isi folder ini.
+Options -Indexes
+DirectoryIndex index.html
+ServerSignature Off
+
+RewriteEngine On
+# Paksa HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Tolak file tersembunyi (kecuali .well-known untuk SSL) dan file kerja
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+RewriteRule \.(md|py|sh|bak|old|orig|zip|log|sql|env|ini)$ - [F,L,NC]
+
+AddType application/manifest+json .webmanifest
+AddType font/woff2 .woff2
+AddType text/javascript .js
+AddDefaultCharset utf-8
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "no-referrer"
+  Header always set X-Frame-Options "DENY"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types ji; upgrade-insecure-requests"
+
+  # File yang bisa berubah: selalu cek ke server (service worker tetap melayani offline)
+  <FilesMatch "\.(html|js|css|webmanifest)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Font dan ikon jarang berubah
+  <FilesMatch "\.(woff2|png)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/manifest+json
+</IfModule>
