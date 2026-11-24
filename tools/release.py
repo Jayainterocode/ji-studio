@@ -31,8 +31,8 @@ def main() -> int:
     # 1. aset + versi
     assets = []
     for r in rel:
-        if r in NOT_CACHED:
-            continue
+        if r in NOT_CACHED or r.startswith("api/") or r.endswith(".htaccess"):
+            continue  # API (PHP) selalu lewat jaringan, tidak pernah di-cache
         if r.endswith("index.html"):
             d = r[: -len("index.html")]
             assets.append("./" + d)
@@ -56,7 +56,7 @@ def main() -> int:
         raw = p.read_bytes()
         size = len(raw) if p.suffix in (".woff2", ".png") else gz(raw)
         lim = BUDGET_FILE.get(p.suffix)
-        if r != ".htaccess":
+        if not r.endswith(".htaccess") and not r.startswith("api/"):
             total += size
         flag = ""
         if lim and size > lim:

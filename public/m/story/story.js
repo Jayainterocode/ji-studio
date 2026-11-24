@@ -3,6 +3,9 @@ import { store } from '../../core/store.js';
 import { QUALITY, defaultQuality, isLowEnd, audioSupported } from '../../core/device.js';
 import { canShareFile, shareFile, downloadFile, slug } from '../../core/save.js';
 import { createRenderer, FONTS } from './overlay.js';
+import { requireUser, mountUserMenu } from '../../core/auth.js';
+
+mountUserMenu(await requireUser());
 
 const MAX_VIDEO_BYTES = 500 * 1024 * 1024, MAX_VIDEO_SEC = 60, MAX_LOGO_BYTES = 5 * 1024 * 1024;
 const BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
@@ -22,7 +25,7 @@ let hasVideo = false, vFile = null, vURL = null, logo = null, exporting = false,
 let clock0 = performance.now(), lastPaint = 0;
 
 const say = (t, err) => { const m = $('msg'); m.textContent = t; m.classList.toggle('err', !!err); };
-const prog = f => { $('prog').style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; };
+const prog = f => { const v = Math.max(0, Math.min(1, f)) * 100; $('prog').style.width = v.toFixed(1) + '%'; $('pct').textContent = Math.round(v) + '%'; };
 const today = () => { const d = new Date(); return `${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}`; };
 const data = () => ({ judul2: F.judul2.value.trim(), tujuan: F.tujuan.value.trim(), muatan: F.muatan.value.trim(), tanggal: F.tanggal.value.trim(), tag: F.tag.value.trim() });
 
@@ -103,6 +106,7 @@ setupDrop($('dropV'), $('fileV'), f => {
     }
     hasVideo = true;
     $('vName').textContent = f.name;
+    $('dropV').classList.add('done'); $('vIco').setAttribute('d', 'M5 12.5l4.5 4.5L19 7.5');
     showInfo();
     $('bExport').disabled = false;
     say('Siap. Cek pratinjau, lalu tekan Ekspor video.');
@@ -118,6 +122,7 @@ setupDrop($('dropL'), $('fileL'), async f => {
   try {
     logo = await createImageBitmap(f);
     $('lName').textContent = f.name;
+    $('dropL').classList.add('done');
     resetResult();
   } catch { say('Logo tidak bisa dibuka.', true); }
 });

@@ -13,22 +13,27 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="JI Studio">
 <link rel="apple-touch-icon" href="../../img/icon-180.png">
+<link rel="icon" href="../../img/icon-192.png" type="image/png">
 <link rel="preload" href="../../fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../core/app.css">
 <script type="module" src="../../core/boot.js"></script>
 <script type="module" src="story.js"></script>
 </head>
-<body>
-<header class="top"><a href="../../">&larr; JI Studio</a></header>
+<body class="gate">
+<header class="top">
+  <a class="back" href="../../"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Beranda</a>
+  <span class="top-title">Story Pengantaran</span>
+  <div class="who" id="who"></div>
+</header>
 <main class="wrap split">
   <div>
     <h1>Story Pengantaran</h1>
     <p class="sub">Pilih video truk, isi data kiriman, lalu ekspor jadi MP4 9:16 untuk IG &amp; WA Story.</p>
 
     <section class="card">
-      <h2>1. Video</h2>
+      <h2><span class="step" aria-hidden="true">1</span>Video</h2>
       <label class="drop" id="dropV">
-        <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span>
+        <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><path id="vIco" d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span>
         <span><b id="vName">Pilih video portrait</b><small id="vInfo">MP4/MOV, sebaiknya 9:16, 10–15 detik, maks 60 detik</small></span>
         <input type="file" id="fileV" accept="video/mp4,video/quicktime,video/webm,video/*">
       </label>
@@ -40,7 +45,7 @@
     </section>
 
     <section class="card">
-      <h2>2. Data pengiriman</h2>
+      <h2><span class="step" aria-hidden="true">2</span>Data pengiriman</h2>
       <label for="fJudul2">Judul baris 2 (di bawah "PENGANTARAN")</label><input type="text" id="fJudul2" maxlength="20" autocomplete="off" aria-describedby="j2Hint">
       <p class="hint" id="j2Hint">Mis. BAJA RINGAN, GENTENG METAL, PLAFON PVC. Kosongkan bila cukup "PENGANTARAN".</p>
       <label for="fTujuan">Tujuan</label><input type="text" id="fTujuan" maxlength="40" autocomplete="off">
@@ -54,7 +59,7 @@
     </section>
 
     <section class="card">
-      <h2>3. Ekspor</h2>
+      <h2><span class="step" aria-hidden="true">3</span>Ekspor</h2>
       <label for="sQual">Kualitas</label>
       <select id="sQual"></select>
       <p class="hint" id="qHint"></p>
@@ -65,7 +70,7 @@
       <button id="bCancel" class="full" type="button" hidden>Batalkan</button>
       <button id="bShare" class="main full" type="button" hidden>Simpan ke Foto / Bagikan</button>
       <button id="bDown" class="full" type="button" hidden>Unduh file</button>
-      <div class="bar"><i id="prog"></i></div>
+      <div class="prog"><div class="bar"><i id="prog"></i></div><span class="pct" id="pct">0%</span></div>
       <p class="msg" id="msg" role="status">Pilih video dulu untuk mengekspor.</p>
     </section>
   </div>

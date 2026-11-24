@@ -9,7 +9,13 @@ const { chromium } = require('playwright');
   const errs = [];
   p.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errs.push(m.type() + ': ' + m.text()); });
   p.on('pageerror', e => errs.push('pageerror: ' + e.message));
-  await p.goto((process.env.BASE || 'http://localhost:8080/') + 'm/story/');
+  const base = process.env.BASE || 'http://localhost:8080/';
+  if (process.env.LOGIN) { // LOGIN=username:password bila server memakai login
+    const [u, pw] = process.env.LOGIN.split(':');
+    await p.goto(base + 'login.html'); await p.fill('#lUser', u); await p.fill('#lPass', pw); await p.click('#bLogin');
+    await p.waitForSelector('body.ready');
+  }
+  await p.goto(base + 'm/story/');
   await p.setInputFiles('#fileV', video);
   await p.waitForFunction(() => !document.getElementById('bExport').disabled, null, { timeout: 20000 });
   await p.waitForTimeout(1500);
