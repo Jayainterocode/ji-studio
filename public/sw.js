@@ -1,7 +1,7 @@
 // Service worker JI Studio: cache-first untuk aset sendiri, tidak menyimpan apa pun dari luar.
 // VERSION dan ASSETS ditulis ulang otomatis oleh tools/release.py. Jangan edit manual.
-const VERSION = 'b4ff3abbf4';
-const ASSETS = ['./core/account.js', './core/app.css', './core/auth.js', './core/boot.js', './core/device.js', './core/export.js', './core/install.js', './core/modules.js', './core/mux.js', './core/save.js', './core/shell.js', './core/store.js', './fonts/montserrat.woff2', './img/icon-180.png', './img/icon-192.png', './img/icon-512.png', './img/icon-maskable-512.png', './', './index.html', './login.html', './m/story/', './m/story/index.html', './m/story/overlay.js', './m/story/story.js', './m/users/', './m/users/index.html', './m/users/users.js', './manifest.webmanifest', './reset.html', './setup.html'];
+const VERSION = '6a41a6021a';
+const ASSETS = ['./core/account.js', './core/app.css', './core/auth.js', './core/boot.js', './core/device.js', './core/export.js', './core/install.js', './core/modules.js', './core/mux.js', './core/save.js', './core/shell.js', './core/store.js', './fonts/montserrat.woff2', './img/icon-180.png', './img/icon-192.png', './img/icon-512.png', './img/icon-maskable-512.png', './', './index.html', './login.html', './m/kalkulator/', './m/kalkulator/index.html', './m/kalkulator/kalkulator.css', './m/kalkulator/kalkulator.js', './m/story/', './m/story/index.html', './m/story/overlay.js', './m/story/story.js', './m/users/', './m/users/index.html', './m/users/users.js', './manifest.webmanifest', './reset.html', './setup.html'];
 const CACHE = 'ji-' + VERSION;
 const SCOPE = new URL('./', self.location).href;
 

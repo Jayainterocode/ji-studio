@@ -1,0 +1,96 @@
+/* Modul Kalkulator Marketplace. Semua gaya dicakup .kalk agar tidak bentrok dengan app.css.
+   Ide: meteran tukang — harga jual adalah pita, dipotong jadi modal, potongan, untung. */
+.kalk{--bg:#fff;--ink:#111;--mut:#5b5b5b;--yel:#f4ca45;--yink:#111;--pan:#f1f0ec;--line:#d9d6cf;--modal:#8a8780;--fee:#e8462b;--win:#1f9d55;--loss:#d6331b;--warn:#fff0d6;background:var(--bg);color:var(--ink);font:500 16px/1.55 Montserrat,system-ui,sans-serif}
+@media(prefers-color-scheme:dark){.kalk{--bg:#141414;--ink:#f2f2f2;--mut:#a8a8a8;--pan:#1f1f1f;--line:#333;--modal:#77746d;--warn:#3a2a10}}
+.kalk *{box-sizing:border-box;min-width:0}
+.kalk h1,.kalk h2,.kalk .big,.kalk .mid{font-family:Montserrat,sans-serif}
+.kalk .band{padding:clamp(20px,3vw,40px) max(4vw,16px)}
+.kalk .wrap{max-width:1240px;margin:0 auto;padding:0}
+.kalk .khead{background:var(--yel);color:var(--yink);padding-bottom:0}
+.kalk .khead .top2{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:8px 24px}
+.kalk h1{font-size:clamp(28px,4vw,42px);line-height:1.05;letter-spacing:-.02em;margin:0;font-weight:900}
+.kalk .khead p{margin:0;max-width:46ch;font-size:15px;font-weight:600}
+.kalk .tabs{display:flex;gap:6px;margin-top:22px;overflow-x:auto}
+.kalk .tabs button{flex:none;font:700 15px Montserrat,sans-serif;min-height:46px;padding:0 18px;border:2px solid #111;border-bottom:0;border-radius:8px 8px 0 0;background:transparent;color:#111;cursor:pointer;filter:none}
+.kalk .tabs button[aria-selected=true]{background:var(--bg);color:var(--ink);border-color:#111}
+.kalk .grid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:28px;align-items:start}
+.kalk .panel{background:var(--pan);border:1px solid var(--line);border-radius:10px;padding:20px}
+.kalk label,.kalk .lbl{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+.kalk .panel>label:first-child{margin-top:0}
+.kalk .hint{font-weight:500;color:var(--mut);font-size:inherit;margin:0}
+.kalk input,.kalk select{width:100%;font:600 16px Montserrat,sans-serif;padding:10px 12px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.kalk input:focus,.kalk select:focus{outline:3px solid var(--yel);outline-offset:1px;border-color:var(--line)}
+.kalk .rp{position:relative}.kalk .rp span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:15px;pointer-events:none}.kalk .rp input{padding-left:38px}
+.kalk .pct input{padding-left:12px;padding-right:30px}.kalk .pct span{left:auto;right:10px}
+.kalk .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kalk .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.kalk .seg button{font:700 14px Montserrat,sans-serif;min-height:44px;border:0;border-radius:0;background:var(--bg);color:var(--ink);cursor:pointer;padding:0 6px;filter:none}
+.kalk .seg button+button{border-left:1px solid var(--line)}
+.kalk .seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.kalk .q{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;font-size:14px;font-weight:600}
+.kalk .q .seg{flex:none;width:124px}
+.kalk .q .seg button{min-height:40px}
+.kalk fieldset{border:0;margin:18px 0 0;border-top:1px solid var(--line);padding:14px 0 0}
+.kalk legend{font-weight:700;font-size:14px;padding:0}
+.kalk .prog{display:grid;grid-template-columns:118px minmax(0,1fr) minmax(0,1fr);gap:6px 8px;align-items:center;margin-top:12px;font-size:14px}
+.kalk .prog>span:first-child{grid-column:1/-1;font-weight:600}
+.kalk .prog.head{color:var(--mut);font-size:13px;margin-top:8px}
+.kalk .prog.head>span:first-child{display:none}
+.kalk .prog .seg{grid-template-columns:1fr 1fr}
+.kalk .prog .seg button{min-height:40px;font-size:13px}
+.kalk .prog input{min-height:40px;padding:8px}
+.kalk .prog .rp input{padding-left:32px}.kalk .prog .rp span{left:10px;font-size:13px}
+.kalk .prog .pct input{padding-left:10px;padding-right:28px}.kalk .prog .pct span{left:auto;right:10px}
+.kalk .small{font-size:13px;color:var(--mut);margin:8px 0 0;font-weight:500}
+.kalk .small.lead{margin:0 0 12px}
+.kalk .warn{background:var(--warn);border-radius:8px;padding:10px 12px;font-size:14px;margin-top:12px}
+.kalk .reset{margin-top:18px;background:none;border:1px solid var(--line);color:var(--ink);font:700 14px Montserrat,sans-serif;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer;filter:none}
+.kalk .two.btns{margin-top:18px}.kalk .two.btns .reset{margin:0}
+.kalk .res-top{display:flex;flex-wrap:wrap;gap:12px 36px;align-items:end}
+.kalk .k{font-size:14px;color:var(--mut);margin:0;font-weight:600}
+.kalk .big{font-size:clamp(38px,6vw,64px);font-weight:900;line-height:1;letter-spacing:-.02em;white-space:nowrap}
+.kalk .mid{font-size:26px;font-weight:800;white-space:nowrap}
+.kalk .pos{color:var(--win)}.kalk .neg{color:var(--loss)}
+.kalk .tape{margin:22px 0 6px;height:64px;border-radius:6px;display:flex;overflow:hidden;background:var(--yel);border:2px solid #111;position:relative}
+.kalk .tape div{height:100%;transition:width .35s ease;display:flex;align-items:end;justify-content:center;font:700 13px Montserrat,sans-serif;color:#fff;white-space:nowrap;padding-bottom:6px;overflow:hidden}
+.kalk .tape::after{content:"";position:absolute;inset:0 0 auto 0;height:22px;background:repeating-linear-gradient(90deg,#111 0 1.5px,transparent 1.5px 10px),repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 50px);background-size:auto 9px,auto 20px;background-repeat:repeat-x;opacity:.55;pointer-events:none}
+.kalk .t-modal,.kalk .lg-m{background:var(--modal)}.kalk .t-fee,.kalk .lg-f{background:var(--fee)}.kalk .t-win,.kalk .lg-w{background:var(--win)}
+.kalk .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--mut);margin-bottom:16px;font-weight:600}
+.kalk .legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.kalk table{width:100%;border-collapse:collapse;font-size:15px}
+.kalk th,.kalk td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.kalk th{font-size:13px;color:var(--mut);font-weight:700}
+.kalk td.r,.kalk th.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kalk tr.sub td{font-weight:700}
+.kalk tr.tot td{font-weight:800;border-top:2px solid var(--ink)}
+.kalk .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(13em,1fr));gap:12px;margin-top:18px}
+.kalk .card{border:1px solid var(--line);border-radius:10px;padding:14px;margin:0;background:transparent}
+.kalk .card b{display:block;font-size:24px;font-weight:900;white-space:nowrap}
+.kalk h2{font-size:26px;line-height:1.1;letter-spacing:-.02em;margin:0 0 6px;font-weight:900}
+.kalk h2.gap{margin-top:32px}
+.kalk .note{font-size:13px;color:var(--mut);font-weight:500}
+.kalk .note.lead{margin:0 0 12px}
+.kalk .scroll{overflow-x:auto}
+.kalk tr.best td{background:color-mix(in srgb,var(--yel) 30%,transparent)}
+.kalk .tag{display:inline-block;font-size:12px;font-weight:700;background:var(--ink);color:var(--bg);border-radius:4px;padding:1px 6px;margin-left:6px;letter-spacing:0;vertical-align:baseline}
+.kalk .extra{margin-top:28px}
+.kalk ul{padding-left:20px;margin:8px 0 0}
+.kalk li{margin-bottom:6px;max-width:80ch}
+.kalk .more{border-top:1px solid var(--line)}
+.kalk .gout{border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.kalk .ghead{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.kalk .ghead h2{font-size:22px;margin:0}
+.kalk .copy{font:700 14px Montserrat,sans-serif;min-height:40px;padding:0 16px;border-radius:8px;border:2px solid #111;background:var(--yel);color:#111;cursor:pointer;flex:none;filter:none}
+.kalk .copy.done{background:var(--win);color:#fff;border-color:var(--win)}
+.kalk .gtitle{font-size:21px;font-weight:700;line-height:1.3;margin:10px 0 4px;overflow-wrap:anywhere}
+.kalk .gshort{font-weight:700;margin:6px 0 0;overflow-wrap:anywhere}
+.kalk #gShortWrap{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
+.kalk .gdesc{white-space:pre-wrap;font:500 15px/1.6 Montserrat,sans-serif;margin:10px 0 0;overflow-wrap:anywhere}
+.kalk .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.kalk .chips span{background:var(--pan);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px}
+.kalk .over{color:var(--loss);font-weight:700}
+@media(max-width:860px){.kalk .grid{grid-template-columns:minmax(0,1fr)}.kalk .result{order:-1}}
+@media(max-width:600px){.kalk table{font-size:13px}.kalk th,.kalk td{padding:7px 4px}.kalk .q{flex-wrap:wrap}.kalk .tape div span{display:none}.kalk .tabs button{padding:0 14px;font-size:14px}}
+@media(prefers-reduced-motion:reduce){.kalk .tape div{transition:none}}
+/* kelas .sub di app.css (paragraf abu) jangan ikut ke baris subtotal tabel */
+.kalk tr.sub{color:inherit;margin:0;font-size:inherit}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types ji">
+<meta name="referrer" content="no-referrer">
+<title>Kalkulator Marketplace · JI Studio</title>
+<link rel="manifest" href="../../manifest.webmanifest">
+<meta name="theme-color" content="#2d5592">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JI Studio">
+<link rel="apple-touch-icon" href="../../img/icon-180.png">
+<link rel="icon" href="../../img/icon-192.png" type="image/png">
+<link rel="preload" href="../../fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../core/app.css">
+<script type="module" src="../../core/boot.js"></script>
+<link rel="stylesheet" href="kalkulator.css">
+<script type="module" src="kalkulator.js"></script>
+</head>
+<body class="gate">
+<header class="top">
+  <a class="back" href="../../"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Beranda</a>
+  <span class="top-title">Kalkulator Marketplace</span>
+  <div class="who" id="who"></div>
+</header>
+<main class="kalk">
+<header class="band khead"><div class="wrap">
+  <div class="top2">
+    <h1>Kalkulator potongan<br>marketplace</h1>
+    <p>Masukkan harga dan modal per barang, lihat berapa yang dipotong platform dan berapa untung bersihmu.</p>
+  </div>
+  <div class="tabs" role="tablist" aria-label="Platform">
+    <button role="tab" data-p="tiktok" aria-selected="true">TikTok &amp; Tokopedia</button>
+    <button role="tab" data-p="shopee" aria-selected="false">Shopee</button>
+    <button role="tab" data-p="lazada" aria-selected="false">Lazada</button>
+    <button role="tab" data-p="listing" aria-selected="false">Judul &amp; deskripsi</button>
+  </div>
+</div></header>
+
+<div class="band" id="calcMain"><div class="wrap grid">
+  <form class="panel" id="f" autocomplete="off">
+    <label for="cat">Kategori produk</label>
+    <select id="cat" data-k="cat"></select>
+    <div class="two">
+      <div><label for="price">Harga jual</label><div class="rp"><span>Rp</span><input id="price" data-k="price" data-n inputmode="numeric"></div></div>
+      <div><label for="disc">Diskon dari toko</label><div class="rp"><span>Rp</span><input id="disc" data-k="disc" data-n inputmode="numeric"></div></div>
+    </div>
+    <div class="two">
+      <div><label for="hpp">Modal barang</label><div class="rp"><span>Rp</span><input id="hpp" data-k="hpp" data-n inputmode="numeric"></div></div>
+      <div><label for="other">Biaya lain <span class="hint">packing</span></label><div class="rp"><span>Rp</span><input id="other" data-k="other" data-n inputmode="numeric"></div></div>
+    </div>
+
+    <div data-for="tiktok">
+      <span class="lbl">Tipe toko</span>
+      <div class="seg" data-k="tt_type"><button type="button" data-v="mp">Toko biasa</button><button type="button" data-v="mall">Mall</button></div>
+      <fieldset><legend>Program promosi</legend>
+        <div class="q"><span>Ikut Growth Xtra?</span><div class="seg" data-k="tt_g"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+        <div class="q"><span>Pesanan ini dari iklan GMV Max?</span><div class="seg" data-k="tt_o"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+        <div class="q"><span>Belanja GMV Max toko ≥ 3% omzet?</span><div class="seg" data-k="tt_s"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+      </fieldset>
+    </div>
+
+    <div data-for="shopee" hidden>
+      <span class="lbl">Tipe penjual</span>
+      <div class="seg" data-k="sp_type"><button type="button" data-v="ns">Non Star</button><button type="button" data-v="star">Star</button><button type="button" data-v="starp">Star+</button><button type="button" data-v="mall">Mall</button></div>
+      <fieldset><legend>Biaya program opsional</legend>
+        <div class="prog head"><span></span><span>Ikut?</span><span>Persen</span><span>Maks per pesanan</span></div>
+        <div id="spProg"></div>
+        <p class="small">Lihat persennya di Kalkulator Biaya Shopee untuk kategorimu. Barang di atas 5 kg atau lebih dari 60 cm tarif Gratis Ongkir XTRA-nya lain. Maks 0 artinya tanpa batas.</p>
+      </fieldset>
+      <fieldset><legend>Biaya promosi <span class="hint">pesanan dari Affiliate, Live, Video</span></legend>
+        <div id="spPromo"></div>
+      </fieldset>
+    </div>
+
+    <div data-for="lazada" hidden>
+      <span class="lbl">Tipe toko</span>
+      <div class="seg" data-k="lz_type"><button type="button" data-v="mp">Marketplace</button><button type="button" data-v="lm">LazMall</button></div>
+      <label for="lzTier">Tingkat komisi kategori</label>
+      <select id="lzTier" data-k="lz_tier"></select>
+      <fieldset><legend>Program & status toko</legend>
+        <div class="q"><span>Ikut Free Shipping Max?</span><div class="seg" data-k="lz_fsm"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+        <div id="fsmRow" hidden><label for="lzFsm">Tarif Free Shipping Max <span class="hint">maks Rp60.000</span></label><select id="lzFsm" data-k="lz_fsmr"></select></div>
+        <div class="q"><span>Ikut Voucher MAX? <span class="hint">3,5%</span></span><div class="seg" data-k="lz_vm"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+        <div class="q"><span>Toko baru, kurang dari 90 hari?</span><div class="seg" data-k="lz_baru"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+        <div class="q"><span>Kena PPh 22 0,5%?</span><div class="seg" data-k="lz_pph"><button type="button" data-v="1">Ya</button><button type="button" data-v="0">Tidak</button></div></div>
+      </fieldset>
+      <p class="warn">Tingkat komisi per kategori belum dicek. Sementara dipakai tingkat tertinggi supaya untung tidak terlihat lebih besar. Ganti setelah cek halaman kategori di Seller Center Lazada.</p>
+    </div>
+
+    <label for="target">Target untung <span class="hint">untuk saran harga</span></label>
+    <div class="rp pct"><span>%</span><input id="target" data-k="target" inputmode="decimal"></div>
+    <button type="button" class="reset" id="reset">Kembalikan contoh</button>
+  </form>
+
+  <section class="result" aria-live="polite">
+    <div class="res-top">
+      <div><p class="k">Untung bersih per barang</p><div class="big" id="profit">–</div></div>
+      <div><p class="k">Uang masuk ke saldo</p><div class="mid" id="net">–</div></div>
+      <div><p class="k">Total potongan</p><div class="mid" id="feeTot">–</div></div>
+    </div>
+    <div class="tape" id="tape" role="img"><div class="t-modal" id="bM"><span>Modal</span></div><div class="t-fee" id="bF"><span>Potongan</span></div><div class="t-win" id="bW"><span>Untung</span></div></div>
+    <div class="legend"><span><i class="lg-m"></i>Modal + biaya lain</span><span><i class="lg-f"></i>Potongan platform</span><span><i class="lg-w"></i>Untung</span><span id="tapeNote"></span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Rincian</th><th class="r">Tarif</th><th class="r">Rupiah</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <div class="cards">
+      <div class="card"><span class="k">Harga minimal biar tidak rugi</span><b id="bep">–</b></div>
+      <div class="card"><span class="k" id="sugL">Saran harga jual</span><b id="sug">–</b></div>
+      <div class="card"><span class="k">Margin dari harga jual</span><b id="mg">–</b></div>
+    </div>
+
+    <div class="extra" id="spAdj" hidden>
+      <h2>Kalau pesanan dari Affiliate, Live, atau Video</h2>
+      <div class="scroll"><table><thead><tr><th>Rincian</th><th class="r">Tarif</th><th class="r">Rupiah</th></tr></thead><tbody id="adjRows"></tbody></table></div>
+    </div>
+  </section>
+</div></div>
+
+
+<div class="band" id="genMain" hidden><div class="wrap grid">
+  <form class="panel" id="g" autocomplete="off">
+    <p class="small lead">Isi dengan data yang pasti saja. Kolom kosong tidak akan ditulis di judul maupun deskripsi.</p>
+    <label for="g_nama">1. Nama produk</label><input id="g_nama" data-g="nama" placeholder="Cetok tembok">
+    <label for="g_jenis">2. Jenis produk</label><input id="g_jenis" data-g="jenis" placeholder="Sendok semen">
+    <label for="g_model">3. Model / tipe</label><input id="g_model" data-g="model" placeholder="Ujung lancip">
+    <label for="g_mat">4. Material</label><input id="g_mat" data-g="material" placeholder="Baja, gagang kayu">
+    <label for="g_uk">5. Ukuran</label><input id="g_uk" data-g="ukuran" placeholder="7 inch">
+    <label for="g_isi">6. Isi paket</label><input id="g_isi" data-g="isi" placeholder="1 pcs cetok">
+    <label for="g_guna">Kegunaan <span class="hint">opsional, isi hanya jika sudah pasti</span></label><input id="g_guna" data-g="guna" placeholder="meratakan adukan semen">
+    <div class="two btns"><button type="button" class="reset" id="gEx">Isi contoh</button><button type="button" class="reset" id="gClear">Kosongkan</button></div>
+    <div id="gWarn"></div>
+  </form>
+  <section aria-live="polite">
+    <div class="gout">
+      <div class="ghead"><h2>Judul produk</h2><button type="button" class="copy" data-c="gTitle">Salin</button></div>
+      <p class="gtitle" id="gTitle">–</p>
+      <p class="small" id="gCount"></p>
+      <div id="gShortWrap" hidden><div class="ghead"><span class="k">Versi pendek, maks 70 karakter</span><button type="button" class="copy" data-c="gShort">Salin</button></div><p class="gshort" id="gShort"></p></div>
+    </div>
+    <div class="gout">
+      <div class="ghead"><h2>Deskripsi produk</h2><button type="button" class="copy" data-c="gDesc">Salin</button></div>
+      <pre class="gdesc" id="gDesc">–</pre>
+    </div>
+    <div class="gout">
+      <div class="ghead"><h2>Kata kunci</h2><button type="button" class="copy" data-c="gKw">Salin</button></div>
+      <div class="chips" id="gKwChips"></div><p hidden id="gKw"></p>
+    </div>
+    <div id="gMissing" class="small"></div>
+  </section>
+</div></div>
+
+<section class="band more" id="calcMore"><div class="wrap">
+  <div id="ttScen">
+    <h2>Program TikTok mana yang paling hemat?</h2>
+    <p class="note lead">Potongan per barang di tiap kombinasi program, dengan harga dan kategori di atas. Belum termasuk biaya iklan GMV Max yang kamu bayar sendiri.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Kombinasi</th><th class="r">Diskon komisi</th><th class="r">Biaya Growth Xtra</th><th class="r">Total potongan</th><th class="r">Untung</th></tr></thead>
+      <tbody id="scen"></tbody>
+    </table></div>
+  </div>
+  <h2 class="gap">Bandingkan tiga platform</h2>
+  <p class="note lead">Barang, harga, dan modal yang sama, dengan pengaturan program yang sedang dipilih di tiap tab.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Platform</th><th class="r">Potongan</th><th class="r">Persen</th><th class="r">Uang masuk</th><th class="r">Untung</th></tr></thead>
+    <tbody id="cmp"></tbody>
+  </table></div>
+  <ul class="note">
+    <li>TikTok &amp; Tokopedia: file "Kalkulator TikTok Shop" (tarif setelah 18 Mei 2026). Tarifnya sama untuk kedua platform.</li>
+    <li>Shopee: Kalkulator Biaya di Seller Center (alat pertukangan, Non Star: admin 10%, proses Rp1.250). Live XTRA dan Video XTRA maks Rp1.000 masih perkiraan.</li>
+    <li>Lazada: "Ringkasan Biaya Berjualan di Lazada Indonesia", diperbarui 23 Nov 2026. Marketplace berlaku mulai 7 Des 2026, LazMall mulai 1 Jan 2027.</li>
+    <li>Semua angka estimasi untuk pesanan selesai, 1 barang per pesanan. Belum termasuk ongkir yang ditanggung toko, voucher toko, iklan berbayar, dan biaya logistik.</li>
+  </ul>
+</div></section>
+
+</main>
+</body>
+</html>

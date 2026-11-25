@@ -142,3 +142,4 @@ button.busy::after{content:"";position:absolute;inset:0;margin:auto;width:18px;h
 .install .row{align-items:center}
 .install .main{flex:0 0 auto}
 .auth .install{margin-top:14px}
+@media(max-width:420px){.top-title{display:none}}
