@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; require-trusted-types-for 'script'; trusted-types ji">
+<meta name="referrer" content="no-referrer">
+<title>Buat password · JI Studio</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2d5592">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JI Studio">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="icon" href="img/icon-192.png" type="image/png">
+<link rel="preload" href="fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="core/app.css">
+<script type="module" src="core/boot.js"></script>
+<script type="module" src="core/account.js"></script>
+</head>
+<body class="auth-body">
+<main class="auth">
+  <form class="card" id="fReset" data-page="reset" novalidate>
+    <div class="auth-head"><img src="img/icon-192.png" alt="" width="56" height="56"><h1>Buat password baru</h1><p>Minimal 8 karakter. Gunakan yang mudah Anda ingat tapi sulit ditebak.</p></div>
+    <label for="rPass">Password baru</label>
+    <div class="pw"><input type="password" id="rPass" autocomplete="new-password" minlength="8" required><button type="button" data-toggle="rPass">Lihat</button></div>
+    <label for="rPass2">Ulangi password</label>
+    <div class="pw"><input type="password" id="rPass2" autocomplete="new-password" minlength="8" required><button type="button" data-toggle="rPass2">Lihat</button></div>
+    <button class="main" type="submit" id="bReset">Simpan password</button>
+    <p class="msg" id="rMsg" role="status"></p>
+    <div class="auth-alt"><a href="login.html">Ke halaman masuk</a></div>
+  </form>
+  <p class="auth-foot">JI Studio · Jaya Intero</p>
+</main>
+</body>
+</html>

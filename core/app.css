@@ -1,0 +1,145 @@
+/* JI Studio — gaya bersama semua halaman. Montserrat saja, warna Jaya Intero. */
+@font-face{font-family:Montserrat;src:url(../fonts/montserrat.woff2) format("woff2");font-weight:500 900;font-style:normal;font-display:swap}
+:root{color-scheme:light dark;--bg:#eef3fa;--panel:#fff;--ink:#14233d;--mute:#56657e;--line:#d5dfee;--soft:#e4ecf7;--pri:#4070b3;--dk:#2d5592;--yl:#f4ca45;--err:#c43c3c;--r:16px}
+@media(prefers-color-scheme:dark){:root{--bg:#111a29;--panel:#1a2640;--ink:#e9eff8;--mute:#a3b3cd;--line:#2c3c5c;--soft:#223150;--err:#ff8a8a}}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.5 Montserrat,system-ui,sans-serif;overflow-x:clip}
+body.gate:not(.ready) main{visibility:hidden}
+[hidden]{display:none!important}
+h1{font-size:clamp(24px,5vw,30px);line-height:1.1;font-weight:900;margin:0 0 6px;text-wrap:balance}
+.sub{color:var(--mute);margin:0 0 22px;font-size:15px}
+a{color:var(--pri);font-weight:700}
+
+/* Header */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;min-height:60px;padding:env(safe-area-inset-top) max(4vw,16px) 0;background:var(--dk);color:#fff}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:900;font-size:16px;letter-spacing:.4px;min-height:44px}
+.brand img{flex:none;width:32px;height:32px;border-radius:8px}
+.back{display:inline-flex;align-items:center;gap:6px;color:#fff;text-decoration:none;font-weight:800;font-size:15px;min-height:44px;padding-right:8px}
+.top-title{font-weight:800;font-size:15px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who{margin-left:auto;display:flex;align-items:center;gap:10px}
+.avatar{flex:none;width:34px;height:34px;border-radius:50%;background:var(--yl);color:#14233d;display:grid;place-items:center;font-weight:900;font-size:15px}
+.who-name{font-weight:700;font-size:14px;max-width:16ch;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:12px;font-weight:800;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.18)}
+.top .ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);min-height:38px;padding:0 14px;font-size:14px}
+@media(max-width:480px){.who-name{display:none}}
+
+.wrap{max-width:1180px;margin:0 auto;padding:24px max(4vw,16px) calc(env(safe-area-inset-bottom) + 32px)}
+
+/* Kartu & form */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:14px}
+.card h2{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:800;margin:0 0 14px}
+.step{flex:none;width:26px;height:26px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900}
+label{display:block;font-size:14px;font-weight:700;margin:14px 0 6px}
+.card h2+label,.card h2+.field>label{margin-top:0}
+input[type=text],input[type=email],input[type=password],select{width:100%;font:600 16px Montserrat,sans-serif;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);min-height:48px}
+input::placeholder{color:var(--mute);font-weight:500}
+input:hover,select:hover{border-color:color-mix(in srgb,var(--pri) 45%,var(--line))}
+input:focus,select:focus{border-color:var(--pri);outline:none}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,.drop:focus-within{outline:3px solid var(--yl);outline-offset:2px}
+.pw{position:relative}
+.pw input{padding-right:84px}
+.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-height:36px;padding:0 10px;font-size:13px;border:0;color:var(--pri);background:transparent}
+.hint{font-size:13px;color:var(--mute);margin:6px 0 0;font-weight:600}
+.chk{display:flex;align-items:center;gap:12px;font-weight:600;font-size:14px;margin:4px 0 0;cursor:pointer;min-height:44px}
+.chk input{width:20px;height:20px;accent-color:var(--pri);flex:none}
+
+/* Area unggah */
+.drop{position:relative;display:flex;align-items:center;gap:14px;border:2px dashed var(--line);border-radius:14px;padding:14px;cursor:pointer;min-height:68px;margin:0;transition:border-color .15s,background .15s}
+.drop+.drop{margin-top:10px}
+.drop:hover,.drop.on{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 6%,transparent)}
+.drop.done{border-style:solid;border-color:var(--pri)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop b{display:block;font-size:15px;overflow-wrap:anywhere}.drop small{color:var(--mute);font-size:13px;display:block;overflow-wrap:anywhere;font-weight:600}
+.ico{flex:none;width:42px;height:42px;border-radius:11px;background:var(--pri);display:grid;place-items:center}
+.ico.dk{background:var(--dk)}
+
+/* Tombol */
+.row{display:flex;gap:10px;flex-wrap:wrap}
+button{font:800 15px Montserrat,sans-serif;border-radius:12px;min-height:48px;padding:0 18px;cursor:pointer;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);transition:filter .15s,background .15s}
+button:hover:not(:disabled){filter:brightness(.97)}
+button.main{background:var(--pri);border-color:var(--pri);color:#fff;flex:1}
+button.main:hover:not(:disabled){background:var(--dk);border-color:var(--dk);filter:none}
+button.full{width:100%;margin-top:10px}
+button.link{border:0;background:none;color:var(--pri);padding:0 4px;min-height:44px;font-weight:700}
+button.danger{color:var(--err)}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.busy{position:relative;color:transparent!important}
+button.busy::after{content:"";position:absolute;inset:0;margin:auto;width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Progres & pesan */
+.prog{display:flex;align-items:center;gap:10px;margin-top:14px}
+.bar{flex:1;height:10px;border-radius:6px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--pri);transition:width .2s}
+.pct{font-size:13px;font-weight:800;color:var(--mute);min-width:4ch;text-align:right}
+.msg{font-size:14px;color:var(--mute);margin:10px 0 0;min-height:1.5em;font-weight:600}
+.msg.err{color:var(--err)}
+.msg.ok{color:var(--pri)}
+
+/* Beranda: modul */
+.mods{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.mod{display:flex;align-items:center;gap:16px;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-height:96px;transition:border-color .15s,transform .15s}
+.mod:hover{border-color:var(--pri)}
+.mod:active{transform:scale(.99)}
+.mod .ico{width:52px;height:52px;border-radius:14px}
+.mod-txt{flex:1}
+.mod-txt b{display:block;font-size:17px;font-weight:800;margin-bottom:2px;color:var(--ink)}
+.mod-txt>span{color:var(--mute);font-size:14px;font-weight:600;display:block}
+.mod .ico{color:#fff}
+.mod .chev{flex:none;color:var(--mute)}
+.section-title{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--mute);margin:28px 0 10px}
+
+/* Halaman masuk */
+.auth-body{background:var(--dk);min-height:100dvh;display:grid;place-items:center;padding:calc(env(safe-area-inset-top) + 24px) 16px calc(env(safe-area-inset-bottom) + 24px)}
+.auth{width:100%;max-width:400px}
+.auth .card{padding:28px 24px;margin:0;box-shadow:0 24px 60px -24px rgba(0,0,0,.5)}
+.auth-head{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:18px}
+.auth-head img{width:56px;height:56px;border-radius:14px;margin-bottom:14px}
+.auth-head h1{font-size:24px}
+.auth-head p{margin:0;color:var(--mute);font-size:14px;font-weight:600}
+.auth .main{width:100%;margin-top:18px}
+.auth-alt{display:flex;justify-content:center;margin-top:8px}
+.auth-foot{color:rgba(255,255,255,.75);text-align:center;font-size:13px;font-weight:600;margin-top:16px}
+
+/* Daftar pengguna */
+.ulist{list-style:none;margin:0;padding:0}
+.ulist li{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.ulist li:first-child{border-top:0}
+.ulist .avatar{background:var(--soft);color:var(--ink)}
+.ulist .u-txt{flex:1;min-width:160px}
+.ulist b{display:block;font-size:15px}
+.ulist small{display:block;color:var(--mute);font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.ulist .u-act{display:flex;gap:6px;flex-wrap:wrap}
+.ulist .u-act button{min-height:38px;padding:0 12px;font-size:13px}
+.tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--ink);margin-left:6px;vertical-align:2px}
+.tag.yl{background:var(--yl);color:#14233d}
+.off{opacity:.55}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+
+/* Editor video: form kiri, ponsel kanan; menumpuk di layar sempit */
+.split{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:32px}
+.stage{position:sticky;top:84px;align-self:start;display:flex;flex-direction:column;align-items:center;gap:12px}
+.phone{width:min(100%,calc((100vh - 180px) * .5625),400px);aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#0d1626;box-shadow:0 24px 60px -20px rgba(20,40,80,.5);border:7px solid #0d1626}
+.phone canvas{width:100%;height:100%;display:block}
+.note{font-size:13px;color:var(--mute);text-align:center;max-width:400px;font-weight:600;margin:0}
+@media(max-width:820px){.split{grid-template-columns:minmax(0,1fr);gap:20px}.stage{position:static;order:-1}.phone{width:min(100%,300px)}}
+
+/* Pemberitahuan versi baru */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:9;display:flex;gap:12px;align-items:center;background:var(--dk);color:#fff;padding:10px 10px 10px 16px;border-radius:14px;font-weight:700;font-size:14px;width:max-content;max-width:calc(100% - 32px);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.toast button{background:var(--yl);border-color:var(--yl);color:#14233d;min-height:40px}
+
+/* Elemen kerja yang harus "terlihat" oleh browser tapi tidak oleh pengguna */
+.rec-canvas,.src-video{position:fixed;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* Kartu petunjuk pasang aplikasi */
+.install{border-color:var(--pri);border-width:2px}
+.install b{display:block;font-size:16px;font-weight:800}
+.install ol{margin:8px 0 4px;padding-left:20px;font-size:14px;font-weight:600;color:var(--mute)}
+.install li{margin:4px 0}
+.install .row{align-items:center}
+.install .main{flex:0 0 auto}
+.auth .install{margin-top:14px}
+@media(max-width:420px){.top-title{display:none}}

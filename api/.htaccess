@@ -1,0 +1,5 @@
+# API: hanya file .php di folder ini yang boleh dipanggil; jangan pernah di-cache
+Options -Indexes
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store"
+</IfModule>
